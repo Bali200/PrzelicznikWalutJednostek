@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Przelicznik walut lub jednostek</string>
+    <string-array name="waluty_opcje">
+        <item>PLN</item>
+        <item>EUR</item>
+        <item>USD</item>
+    </string-array>
+</resources>
