@@ -1,12 +1,19 @@
 package com.example.przelicznikwalutlubjednostek;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,67 +34,73 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Spinner waluta1 = findViewById(R.id.waluta1);
-        Spinner waluta2 = findViewById(R.id.waluta2);
+        Spinner waluta1 = findViewById(R.id.jednostka1);
+        Spinner waluta2 = findViewById(R.id.jednostka2);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.waluty_opcje,
+        ArrayAdapter<CharSequence> adapterW = ArrayAdapter.createFromResource(this, R.array.waluty_opcje,
                 android.R.layout.simple_spinner_item);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterW.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        waluta1.setAdapter(adapter);
-        waluta2.setAdapter(adapter);
+        waluta1.setAdapter(adapterW);
+        waluta2.setAdapter(adapterW);
 
-        EditText waluta1Text = findViewById(R.id.waluta1Text);
-        EditText waluta2Text = findViewById(R.id.waluta2Text);
+        EditText waluta1Text = findViewById(R.id.jednostka1Text);
+        EditText waluta2Text = findViewById(R.id.jednostka2Text);
 
-        Button obliczButton = findViewById(R.id.buttonOblicz);
         Button zamienWalutyButton = findViewById(R.id.buttonSwitch);
+        Button przelaczWidokButton = findViewById(R.id.ZmienWidok);
+
+        przelaczWidokButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(i);
+            }
+        });
 
         zamienWalutyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int wybor1 = waluta1.getSelectedItemPosition();
-                int wybor2 = waluta2.getSelectedItemPosition();
-
-                waluta1.setSelection(wybor2);
-                waluta2.setSelection(wybor1);
+                Funkcje.ZamianaWartosciSpinnerow(waluta1, waluta2);
+                Log.d("MainActivity", "Zamieniono waluty");
             }
         });
 
-        obliczButton.setOnClickListener(new View.OnClickListener() {
+
+        waluta1Text.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                double przelicznik = 1.0;
-                double wartosc1 = Float.parseFloat(waluta1Text.getText().toString());
-                String wybranaWaluta1 = waluta1.getSelectedItem().toString();
-                String wybranaWaluta2 = waluta2.getSelectedItem().toString();
-
-                //stan na 02.12.2025
-                if (wybranaWaluta1.equals("PLN")) {
-                    if (wybranaWaluta2.equals("EUR")) {
-                        przelicznik = 0.24;  // 1 PLN = 0.24 EUR
-                    } else if (wybranaWaluta2.equals("USD")) {
-                        przelicznik = 0.27;  // 1 PLN = 0.27 USD
-                    }
-                } else if (wybranaWaluta1.equals("EUR")) {
-                    if (wybranaWaluta2.equals("PLN")) {
-                        przelicznik = 4.24;  // 1 EUR = 4.24 PLN
-                    } else if (wybranaWaluta2.equals("USD")) {
-                        przelicznik = 1.16;  // 1 EUR = 1.16 USD
-                    }
-                } else if (wybranaWaluta1.equals("USD")) {
-                    if (wybranaWaluta2.equals("PLN")) {
-                        przelicznik = 3.65;  // 1 USD = 3.65 PLN
-                    } else if (wybranaWaluta2.equals("EUR")) {
-                        przelicznik = 0.86;  // 1 USD = 0.86 EUR
-                    }
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0)
+                {
+                    Funkcje.ObliczWaluty(waluta1Text, waluta2Text, waluta1, waluta2);
+                } else {
+                    waluta2Text.setText("0.0");
                 }
+            }
 
-                double wynik = wartosc1 * przelicznik;
-                waluta2Text.setText(String.valueOf(Math.round(wynik * 100.0) / 100.0));
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
         });
 
+        waluta1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!waluta1Text.getText().toString().isEmpty()) {
+                    Funkcje.ObliczWaluty(waluta1Text, waluta2Text, waluta1, waluta2);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 }

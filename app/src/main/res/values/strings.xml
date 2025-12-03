@@ -5,4 +5,11 @@
         <item>EUR</item>
         <item>USD</item>
     </string-array>
+    <string-array name="jednostki_opcje">
+        <item>mm</item>
+        <item>cm</item>
+        <item>m</item>
+        <item>km</item>
+        <item>dm</item>
+    </string-array>
 </resources>
