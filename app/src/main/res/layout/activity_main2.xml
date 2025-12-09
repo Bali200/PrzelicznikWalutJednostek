@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity2">
 
     <LinearLayout
         android:id="@+id/jednostki"
@@ -15,24 +15,34 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="18dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSwitch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
             android:id="@+id/jednostka1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <Spinner
             android:id="@+id/jednostka2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonSwitch"
+        android:layout_width="99dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginEnd="156dp"
+        android:text="zamień"
+        app:layout_constraintBottom_toTopOf="@+id/wartosci"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jednostki" />
 
     <LinearLayout
         android:id="@+id/wartosci"
@@ -49,7 +59,7 @@
 
         <EditText
             android:id="@+id/jednostka1Text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
@@ -57,36 +67,23 @@
 
         <EditText
             android:id="@+id/jednostka2Text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
-            android:inputType="number|numberDecimal"
-            />
+            android:inputType="number|numberDecimal" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/ZmienWidok"
+        android:id="@+id/zmienWidok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="321dp"
-        android:text="Przelicznik jednostek"
+        android:layout_marginStart="256dp"
+        android:text="Przelicznik walut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonSwitch"
-        android:layout_width="99dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="156dp"
-        android:layout_marginEnd="156dp"
-        android:text="zamień"
-        app:layout_constraintBottom_toTopOf="@+id/wartosci"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jednostki" />
 </androidx.constraintlayout.widget.ConstraintLayout>
