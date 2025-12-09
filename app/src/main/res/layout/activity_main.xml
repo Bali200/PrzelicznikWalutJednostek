@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="Wpisz swoją wartość"
             android:inputType="number|numberDecimal" />
 
         <EditText
@@ -63,6 +64,7 @@
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
+            android:hint="Tu zobaczysz wynik"
             android:inputType="number|numberDecimal"
             />
     </LinearLayout>
@@ -89,4 +91,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jednostki" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="199dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="174dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="179dp"
+        android:text="PRZELICZNIK WALUT"
+        android:textAlignment="center"
+        android:textSize="35px"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
